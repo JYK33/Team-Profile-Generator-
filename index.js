@@ -16,8 +16,8 @@ function newEmployee(){
     name: 'position',
     choices: [
         'Manager',
-        'Intern',
         'Engineer',
+        'Intern',
         ]
     },
 
@@ -59,28 +59,8 @@ function newEmployee(){
                     otherEmployee()
                 })
                 break;
-                
-                case 'Intern':
-                    // what school 
-    inquirer.prompt([
-        {
-            type: 'input',
-            message: 'What school doess the intern attend?',
-            name: 'school',
-        }
-    ]).then(({ school }) => {
-        employees.push (new Intern(
-            name,
-            id,
-            email,
-            school,
-            ))
-            otherEmployee()
-        });
-        break;
-        
         case 'Engineer':
-            // what is their github 
+        // what is their github 
             inquirer.prompt([
                 {
                     type: 'input',
@@ -93,6 +73,25 @@ function newEmployee(){
                     id,
                     email,
                     github,
+                    ))
+                    otherEmployee()
+                });
+                break;
+                
+        case 'Intern':
+                    // what school 
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    message: 'What school doess the intern attend?',
+                    name: 'school',
+                }
+            ]).then(({ school }) => {
+                employees.push (new Intern(
+                    name,
+                    id,
+                    email,
+                    school,
                     ))
                     otherEmployee()
                 });
@@ -115,6 +114,8 @@ function otherEmployee(){
             else renderHTMLFile();
         })
         }
+
+// Function to write the html file
 function renderHTMLFile() {
     fs.writeFileSync('./index.html', /*html*/`
 
@@ -141,11 +142,10 @@ function renderHTMLFile() {
     <div class="col-md-3 text-dark" style = "margin : 5px; padding: 0; text-align: center; background-color: wheat; border-radius: 3px; border-color: black; border-style: solid;">
      <header style = "background : lightblue">
       <h1>${employees.getRole()}</h1>
-      <h2>
      </header>
-      <p> Name: ${employees.getName()}</p><br>
-      <p> ID Number: ${employees.getId()}</p><br>
-      <p> E-Mail: ${employees.getEmail()}</p><br>
+      <h5> Name: ${employees.getName()}</h5><br>
+      <h5> ID Number: ${employees.getId()}</h5><br>
+      <h5> E-Mail: ${employees.getEmail()}</h5><br>
       ${roleInfo(employees)}
     </div>
     `)}
@@ -153,17 +153,20 @@ function renderHTMLFile() {
     </div>      
 `)
 }
+// function to get specific information about specific role
 function roleInfo(employees) {
     switch (employees.getRole()) {
-        // getting the 
+        // getting the office number
         case "Manager":
-        return `<p> Office Number: ${employees.getOfficeNumber()}</p>`
+        return `<h5> Office Number: ${employees.getOfficeNumber()}</h5>`
         break;
-        case "Intern":
-        return `<p> School: ${employees.getSchool()}</p>`
-        break;
+        // getting the github username 
         case "Engineer":
-        return `<p> GitHub: <a href ="https://www.github.com/${employees.getGithub()}"> GitHub</a></p>`
+        return `<h5><a href ="https://www.github.com/${employees.getGithub()}"> GitHub</a></h5>`
+        break;
+        // getting the school name 
+        case "Intern":
+        return `<h5> School: ${employees.getSchool()}</h5>`
         break;
     }
 }
