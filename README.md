@@ -17,4 +17,4 @@ Once the user as added all the members of the team, the application will create 
 
 
 ### Link to the demo video 
-
+https://www.youtube.com/watch?v=sTs-4JVlot8&ab_channel=JohnKang
